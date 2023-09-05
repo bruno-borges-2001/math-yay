@@ -1,11 +1,12 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "../ui/button";
+import Loader from "../ui/loader";
 
 export default function SignIn() {
   const { data: session, status } = useSession();
 
-  if (status === "loading") return <div>Loading...</div>;
+  if (status === "loading") return <div className="fixed inset-0 h-[100vh] w-[100vw] grid place-items-center"><Loader /></div>;
 
   if (session) {
     return (
