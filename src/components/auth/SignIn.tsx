@@ -6,7 +6,7 @@ import Loader from "../ui/loader";
 export default function SignIn() {
   const { data: session, status } = useSession();
 
-  if (status === "loading") return <div className="fixed inset-0 h-[100vh] w-[100vw] grid place-items-center"><Loader /></div>;
+  if (status === "loading") return <div className="fixed inset-0 h-[100vh] w-[100vw] grid place-items-center z-50 bg-slate-200 dark:bg-slate-800"><Loader /></div>;
 
   if (session) {
     return (
@@ -19,7 +19,7 @@ export default function SignIn() {
   return (
     <>
       Not signed in <br />
-      <Button onClick={() => signIn()}>Sign in</Button>
+      <Button onClick={() => signIn('google')}>Sign in</Button>
     </>
   );
 }

@@ -7,7 +7,9 @@ export default function Home() {
       <div className='fixed top-3 right-3'>
         <ModeToggle />
       </div>
-      <SignIn />
+      <div className='fixed top-3 left-3'>
+        <SignIn />
+      </div>
     </div>
   )
 }
