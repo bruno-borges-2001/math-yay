@@ -1,14 +1,14 @@
-import { GAME_MODE, OperationReturn, VALID_OPERATION } from "@/types/game";
+import { GAME_DIFFICULTY, OperationReturn, VALID_OPERATION } from "@/types/game";
 import { randomFloat, randomInt } from "../utils";
 
-const OPERATIONS: Record<GAME_MODE, VALID_OPERATION[]> = {
-  [GAME_MODE.SMALL]: ['+', '-'],
-  [GAME_MODE.MEDIUM]: ['+', '-', '*', '/'],
-  [GAME_MODE.HARD]: ['+', '-', '*', '/', '**', 'sqrt'],
-  [GAME_MODE.IMPOSSIBLE]: ['*', '/', '**', 'sqrt']
+const OPERATIONS: Record<GAME_DIFFICULTY, VALID_OPERATION[]> = {
+  [GAME_DIFFICULTY.EASY]: ['+', '-'],
+  [GAME_DIFFICULTY.MEDIUM]: ['+', '-', '*', '/'],
+  [GAME_DIFFICULTY.HARD]: ['+', '-', '*', '/', '**', 'sqrt'],
+  [GAME_DIFFICULTY.IMPOSSIBLE]: ['*', '/', '**', 'sqrt']
 }
 
-const generateOperand = (operation: VALID_OPERATION, mode: GAME_MODE, round: number): number => {
+const generateOperand = (operation: VALID_OPERATION, mode: GAME_DIFFICULTY, round: number): number => {
   switch (operation) {
     case '+':
     case '-':
@@ -34,14 +34,15 @@ const generateOperand = (operation: VALID_OPERATION, mode: GAME_MODE, round: num
   }
 }
 
-export const generate = (mode = GAME_MODE.MEDIUM, round = 0): OperationReturn => {
-  if (!Object.values(GAME_MODE).includes(mode)) {
+export const generate = (mode = GAME_DIFFICULTY.MEDIUM, round = 0): OperationReturn => {
+  if (!Object.values(GAME_DIFFICULTY).includes(mode)) {
     throw new Error("Invalid game mode");
   }
 
   const possibleOperations = OPERATIONS[mode]
+  const operationIndex = randomInt(0, possibleOperations.length - 1)
 
-  const operation = possibleOperations[randomInt(0, possibleOperations.length)];
+  const operation = possibleOperations[operationIndex];
 
   const operand1 = generateOperand(operation, mode, round)
 
@@ -52,29 +53,28 @@ export const generate = (mode = GAME_MODE.MEDIUM, round = 0): OperationReturn =>
         operands: [operand1 ** 2],
         result: operand1
       }
-    case '**': {
-      const operand2 = randomInt(1 + Math.floor(round / 20), 4 + Math.floor(round / 10))
+    case '**':
+      const powOperand2 = randomInt(1 + Math.floor(round / 20), 4 + Math.floor(round / 10))
       return {
         operation,
-        operands: [operand1, operand2],
-        result: operand1 ** operand2
+        operands: [operand1, powOperand2],
+        result: operand1 ** powOperand2
       }
-    }
-    case '/': {
-      const operand2 = randomInt(1 + Math.floor(round / 15), 10 + Math.floor(round / 5))
+    case '/':
+      const divOperand2 = randomInt(1 + Math.floor(round / 15), 10 + Math.floor(round / 5))
       return {
         operation,
-        operands: [operand1 * operand2, operand1],
-        result: operand2
+        operands: [operand1 * divOperand2, operand1],
+        result: divOperand2
       }
-    }
-    default: {
+
+    default:
       const operand2 = generateOperand(operation, mode, round)
       return {
         operation,
         operands: [operand1, operand2],
         result: eval(`${operand1} ${operation} ${operand2}`) as number
       }
-    }
+
   }
 }

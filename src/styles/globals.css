@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  transition: all 0.3s ease;
+}
+
 .light body {
   @apply bg-slate-200;
 }

@@ -1,5 +1,16 @@
 export enum GAME_MODE {
-  SMALL,
+  NORMAL = 'normal',
+  UNLIMITED = 'unlimited',
+}
+
+export enum GAME_STATE {
+  UNSTARTED,
+  IN_PROGRESS,
+  FINISHED
+}
+
+export enum GAME_DIFFICULTY {
+  EASY,
   MEDIUM,
   HARD,
   IMPOSSIBLE

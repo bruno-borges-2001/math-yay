@@ -25,13 +25,15 @@ export default function ModeToggle() {
         <FiSun className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10">Dark</span>
       </button>
-      <div className={`absolute inset-0 z-0 flex ${theme === "dark" ? "justify-end" : "justify-start"}`}>
-        <motion.span
-          layout
-          transition={{ type: "spring", damping: 15, stiffness: 250 }}
-          className="h-full w-1/2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600"
-        />
-      </div>
+      {theme && (
+        <div className={`absolute inset-0 z-0 flex ${theme === "dark" ? "justify-end" : "justify-start"}`}>
+          <motion.span
+            layout
+            transition={{ type: "spring", damping: 15, stiffness: 250 }}
+            className="h-full w-1/2 rounded-full bg-default-gradient"
+          />
+        </div>
+      )}
     </div>
   );
 };
