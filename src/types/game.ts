@@ -23,3 +23,7 @@ export type OperationReturn = {
   operands: [number] | [number, number],
   result: number
 }
+
+export type PossibleResult = 'correct' | 'incorrect' | 'skipped'
+export type RoundResult = { answer?: PossibleResult, round: number }
+export type DetailedResult = OperationReturn & RoundResult

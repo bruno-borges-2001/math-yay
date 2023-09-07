@@ -1,9 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "../ui/button";
 import Loader from "../ui/loader";
-import { AnimatePresence } from "framer-motion";
 
 function SignIn() {
   const { data: session, status } = useSession();

@@ -1,10 +1,11 @@
 'use client'
 
-import { generate } from "@/lib/game/generate";
-import { GAME_DIFFICULTY, OperationReturn } from "@/types/game";
-import { useState } from "react";
-import { useForm, SubmitHandler } from 'react-hook-form'
 import { Input } from "@/components/ui/input";
+import useGame from "@/hooks/useGame";
+import { generate } from "@/lib/game/generate";
+import { OperationReturn } from "@/types/game";
+import { useState } from "react";
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 
 interface RoundProps {
@@ -21,7 +22,9 @@ type Form = {
 }
 
 export default function Round({ forcedOperation, round = 0, onCorrect, onIncorrect, onSkip }: RoundProps) {
-  const [operationData] = useState(forcedOperation ?? generate(GAME_DIFFICULTY.EASY, round))
+  const { gameDifficulty } = useGame()
+
+  const [operationData] = useState(forcedOperation ?? generate(gameDifficulty, round))
   const { operands, operation, result } = operationData
 
   const { register, handleSubmit } = useForm<Form>()
@@ -71,11 +74,11 @@ export default function Round({ forcedOperation, round = 0, onCorrect, onIncorre
       <Input
         autoFocus
         autoComplete="off"
-        pattern="[0-9.,]*"
+        pattern="[0-9.,\-]*"
         placeholder="Your answer"
         {...register('answer')}
       />
-      <p className="text-sm text-center mt-2 text-gray-600 dark:text-gray-400">Type your answer and press enter to submit your answer</p>
+      <p className="text-xs sm:text-sm text-center mt-2 text-gray-600 dark:text-gray-400">Type your answer and press enter to submit your answer</p>
     </form>
   )
 }

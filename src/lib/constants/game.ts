@@ -1,0 +1,1 @@
+export const NORMAL_MODE_ROUNDS = 20
