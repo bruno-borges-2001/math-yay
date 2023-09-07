@@ -1,14 +1,29 @@
-import { PossibleResult, RoundResult } from "@/types/game"
+import { GAME_MODE, PossibleResult, RoundResult } from "@/types/game"
 import { BsCheckCircleFill, BsFillSkipEndCircleFill, BsFillXCircleFill } from 'react-icons/bs'
 
+import useGame from "@/hooks/useGame"
+import { cn } from "@/lib/utils"
 import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useRef } from "react"
 import './resultList.styles.css'
 
 interface ResultListProps {
   results: RoundResult[]
+  singleLine?: boolean
 }
 
-export default function ResultList({ results }: ResultListProps) {
+interface ResultItemProps {
+  result: RoundResult
+}
+
+function ResultItem({ result }: ResultItemProps) {
+  const { gamemode } = useGame()
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (gamemode === GAME_MODE.NORMAL) return;
+    ref?.current?.scrollIntoView({ behavior: 'smooth', inline: 'end', block: 'end' })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const renderResult = (answer?: PossibleResult) => {
     if (!answer) return null;
@@ -21,17 +36,24 @@ export default function ResultList({ results }: ResultListProps) {
   }
 
   return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="result-container"
+      id={`round-${result.round}`}
+    >
+      <div className="round-content">{result.round}</div>
+      <div className="round-content">{renderResult(result.answer)}</div>
+    </motion.div>
+  )
+}
+
+export default function ResultList({ results, singleLine = false }: ResultListProps) {
+  return (
     <AnimatePresence>
-      <motion.article layout className="results-wrapper">
-        {results.map(result => (
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            key={result.round} className="result-container">
-            <div className="round-content">{result.round}</div>
-            <div className="round-content">{renderResult(result.answer)}</div>
-          </motion.div>
-        ))}
+      <motion.article layout className={cn("general-container results-wrapper", { "w-min": singleLine, "detailed-results-wrapper": !singleLine })} layoutId="result-list">
+        {results.map(result => <ResultItem key={result.round} result={result} />)}
       </motion.article>
     </AnimatePresence>
   )

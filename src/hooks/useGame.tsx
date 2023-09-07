@@ -12,7 +12,7 @@ interface GameContextProps {
 const GameContext = createContext({} as GameContextProps)
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
-  const [gamemode, setGamemode] = useState(GAME_MODE.UNLIMITED)
+  const [gamemode, setGamemode] = useState(GAME_MODE.NORMAL)
   const [gameDifficulty, setGameDifficulty] = useState(GAME_DIFFICULTY.MEDIUM)
 
   return (

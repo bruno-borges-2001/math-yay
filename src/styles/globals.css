@@ -6,10 +6,10 @@ body {
   transition: all 0.3s ease;
 }
 
-.light body {
-  @apply bg-slate-200;
+body {
+  @apply bg-slate-200 dark:bg-slate-800;
 }
 
-.dark body {
-  @apply bg-slate-800;
+.general-container {
+  @apply px-3 py-3 bg-white dark:bg-slate-950 rounded-xl shadow;
 }
