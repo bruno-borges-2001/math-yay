@@ -10,10 +10,10 @@ export enum GAME_STATE {
 }
 
 export enum GAME_DIFFICULTY {
-  EASY,
-  MEDIUM,
-  HARD,
-  IMPOSSIBLE
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  HARD = 'hard',
+  IMPOSSIBLE = 'impossible',
 }
 
 export enum ResultStatus {

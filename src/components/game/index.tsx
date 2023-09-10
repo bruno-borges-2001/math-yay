@@ -7,6 +7,7 @@ import { LayoutGroup } from "framer-motion"
 import { ElementRef, useEffect, useMemo, useRef, useState } from "react"
 import Timer from "../general/timer"
 import { Button } from "../ui/button"
+import GameDifficultySelect from "./gameDifficultySelect"
 import ResultList from "./resultList"
 import Round from "./round"
 
@@ -89,10 +90,25 @@ function Game({ onReset }: GameProps) {
     switch (gameState) {
       case GAME_STATE.UNSTARTED:
         return (
-          <div>
-            <Button variant="primary" size="lg" onClick={() => {
-              setGameState(GAME_STATE.IN_PROGRESS)
-            }}>Start Game</Button>
+          <div className="flex flex-col items-center text-center">
+            <div className="fixed top-8">
+              <GameDifficultySelect />
+            </div>
+
+            <h1 className="text-5xl font-black">Welcome to Math! Yay!</h1>
+            <h2 className="text-xl font-semibold mt-4 mb-8">Solve the math questions the fastest you can</h2>
+
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => {
+                setGameState(GAME_STATE.IN_PROGRESS)
+              }}
+            >
+              Start Game
+            </Button>
+
+            <p className="text-lg mt-8">{gamemode === GAME_MODE.NORMAL ? 'There will be 20 questions for you to solve in the least time possible' : 'Try to answer as many questions as you want, when you\'re finished just click the End Game button'}</p>
           </div>
         )
       case GAME_STATE.IN_PROGRESS:
@@ -109,29 +125,36 @@ function Game({ onReset }: GameProps) {
               onIncorrect={handleNextRound('incorrect')}
               onSkip={handleNextRound('skipped')}
             />
+
             {gamemode === GAME_MODE.UNLIMITED && (
               <div className="flex flex-col justify-center items-center mt-2">
-                <Button variant="primary" onClick={() => {
-                  setGameState(GAME_STATE.FINISHED)
-                  timerRef.current?.stopTimer()
-                }}>End Game</Button>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setGameState(GAME_STATE.FINISHED)
+                    timerRef.current?.stopTimer()
+                  }}
+                >
+                  End Game
+                </Button>
               </div>
             )}
-            <div className="fixed bottom-0 left-[50%] translate-x-[-50%] max-w-[85vw] py-2">
-              <ResultList results={answersByRound} singleLine />
+
+            <div className="fixed bottom-0 left-[50%] translate-x-[-50%] max-w-[85vw] py-2 z-[-1]">
+              <ResultList results={answersByRound} inGameMode />
             </div>
           </div>
         )
       case GAME_STATE.FINISHED:
         return (
           <div>
-            <div className="flex flex-col items-center justify-center gap-2">
-              <p className="text-center">Congratulations, you completed the challenge in</p>
+            <div className="flex flex-col items-center justify-center gap-2 text-lg text-center">
+              <p>Congratulations, you completed the challenge in</p>
               <Timer key="timer" ref={timerRef} />
-              <p className="text-center">You can check your results below</p>
+              <p>You can check your results below</p>
             </div>
 
-            <section className="max-w-[80vw] md:max-w-[450px] relative my-4">
+            <section className="max-w-[80vw] md:max-w-[450px] relative my-4 z-0">
               <ResultList results={answersByRound} />
             </section>
 
@@ -150,11 +173,11 @@ function Game({ onReset }: GameProps) {
   )
 }
 
-export default function GameWrapper() {
+export default function GameWrapper({ mode = GAME_MODE.NORMAL }: { mode: GAME_MODE }) {
   const [key, setKey] = useState('')
 
   return (
-    <GameProvider>
+    <GameProvider mode={mode}>
       <Game key={key} onReset={() => setKey(String(Date.now()))} />
     </GameProvider>
   )

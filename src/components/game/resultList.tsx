@@ -9,7 +9,7 @@ import './resultList.styles.css'
 
 interface ResultListProps {
   results: RoundResult[]
-  singleLine?: boolean
+  inGameMode?: boolean
 }
 
 interface ResultItemProps {
@@ -49,10 +49,10 @@ function ResultItem({ result }: ResultItemProps) {
   )
 }
 
-export default function ResultList({ results, singleLine = false }: ResultListProps) {
+export default function ResultList({ results, inGameMode = false }: ResultListProps) {
   return (
     <AnimatePresence>
-      <motion.article layout className={cn("general-container results-wrapper", { "w-min": singleLine, "detailed-results-wrapper": !singleLine })} layoutId="result-list">
+      <motion.article layout className={cn("general-container results-wrapper", { "w-min": inGameMode, "detailed-results-wrapper": !inGameMode })} layoutId="result-list">
         {results.map(result => <ResultItem key={result.round} result={result} />)}
       </motion.article>
     </AnimatePresence>
