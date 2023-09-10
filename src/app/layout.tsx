@@ -1,4 +1,5 @@
 import AuthLoader from '@/components/auth/AuthLoader'
+import LiquidSideNav from '@/components/ui/liquidSideNav'
 import Providers from '@/hooks'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -21,6 +22,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <AuthLoader />
+
+          <div className='fixed top-3 left-3'>
+            <LiquidSideNav />
+          </div>
+
           {children}
         </Providers>
       </body>

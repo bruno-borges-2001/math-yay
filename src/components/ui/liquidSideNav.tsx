@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import ModeToggle from "./modeToggle";
@@ -35,18 +35,23 @@ interface NavProps {
 }
 
 const Nav = ({ isOpen, setIsOpen }: NavProps) => {
+  const bodyRef = useRef<HTMLBodyElement | null>(null)
   const { data: session } = useSession()
 
-  const body = document.querySelector('body')
+  useEffect(() => {
+    if (bodyRef.current) return
+    bodyRef.current = document.querySelector('body')
+  })
 
-  return body && createPortal(
+
+  return bodyRef.current && createPortal(
     <motion.nav
       className="fixed top-0 bottom-0 w-screen bg-white dark:bg-black z-50"
       animate={isOpen ? "open" : "closed"}
       variants={navVariants}
       initial="closed"
     >
-      <div className="absolute top-8 right-8 flex flex-col sm:flex-row-reverse items-end sm:items-center">
+      <div className="absolute top-8 right-8 flex flex-col sm:flex-row-reverse items-center">
         <motion.button
           className="text-3xl bg-white dark:bg-black hover:text-indigo-500 border-[1px] border-transparent hover:border-indigo-500 transition-colors p-4 rounded-full"
           whileHover={{ rotate: "180deg" }}
@@ -56,7 +61,7 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
           <FiX />
         </motion.button>
         <div>
-          <ModeToggle />
+          <ModeToggle vertical />
         </div>
       </div>
 
@@ -80,7 +85,7 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
 
       </motion.div>
     </motion.nav>,
-    body
+    bodyRef.current
   );
 };
 
