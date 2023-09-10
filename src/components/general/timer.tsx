@@ -31,7 +31,7 @@ const Timer = forwardRef<TimerRef>((_, ref) => {
     stopTimer
   }))
 
-  return <div className="general-container">{parsedValue}</div>
+  return <div className="general-container w-32 text-center">{parsedValue}</div>
 })
 
 Timer.displayName = 'Timer'

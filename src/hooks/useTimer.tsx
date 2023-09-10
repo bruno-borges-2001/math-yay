@@ -11,7 +11,7 @@ export default function useTimer() {
   const updateTimerValue = useCallback((start: number) => {
     timeoutRef.current = setInterval(() => {
       setTimerValue(Date.now() - start)
-    }, 100)
+    }, 50)
   }, [])
 
   const startTimer = useCallback(() => {

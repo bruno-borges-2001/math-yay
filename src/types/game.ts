@@ -16,6 +16,12 @@ export enum GAME_DIFFICULTY {
   IMPOSSIBLE
 }
 
+export enum ResultStatus {
+  SKIPPED,
+  CORRECT,
+  INCORRECT
+}
+
 export type VALID_OPERATION = '+' | '-' | '*' | '/' | '**' | 'sqrt'
 
 export type OperationReturn = {

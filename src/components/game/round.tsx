@@ -3,7 +3,8 @@
 import { Input } from "@/components/ui/input";
 import useGame from "@/hooks/useGame";
 import { generate } from "@/lib/game/generate";
-import { OperationReturn } from "@/types/game";
+import { trpc } from "@/lib/trpc/client";
+import { OperationReturn, ResultStatus } from "@/types/game";
 import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -24,24 +25,31 @@ type Form = {
 export default function Round({ forcedOperation, round = 0, onCorrect, onIncorrect, onSkip }: RoundProps) {
   const { gameDifficulty } = useGame()
 
+  const { mutate: addStatistic } = trpc.statistics.addStatistic.useMutation()
+
   const [operationData] = useState(forcedOperation ?? generate(gameDifficulty, round))
   const { operands, operation, result } = operationData
 
   const { register, handleSubmit } = useForm<Form>()
 
   const onSubmit: SubmitHandler<Form> = ({ answer }) => {
+    let status: ResultStatus;
     if (!answer) {
+      status = ResultStatus.SKIPPED
       onSkip(operationData)
-      return;
-    }
-
-    const _answer = parseFloat(answer.replace(',', '.'))
-
-    if (_answer === result) {
-      onCorrect(operationData)
     } else {
-      onIncorrect(operationData)
+      const _answer = parseFloat(answer.replace(',', '.'))
+
+      if (_answer === result) {
+        status = ResultStatus.CORRECT
+        onCorrect(operationData)
+      } else {
+        status = ResultStatus.INCORRECT
+        onIncorrect(operationData)
+      }
     }
+
+    addStatistic({ operation: operationData.operation, status })
   }
 
   const renderOperation = () => {

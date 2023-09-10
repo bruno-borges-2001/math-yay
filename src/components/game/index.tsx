@@ -98,7 +98,7 @@ function Game({ onReset }: GameProps) {
       case GAME_STATE.IN_PROGRESS:
         return (
           <div>
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-2">
               <Timer key="timer" ref={timerRef} />
             </div>
 
