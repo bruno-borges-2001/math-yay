@@ -1,9 +1,10 @@
 import { db } from "@/lib/db"
 import { ResultsUserId, results } from "@/lib/db/schema/statistics"
-import { ResultStatus, VALID_OPERATION } from "@/types/game"
+import { RESULT_STATUS, VALID_OPERATION } from "@/types/game"
+import { StatisticByOperation } from "@/types/statistics"
 import { and, eq, sql } from "drizzle-orm"
 
-export const getStatisticsByOperation = async (userId: ResultsUserId, operation?: VALID_OPERATION) => {
+export const getStatisticsByOperation = async (userId: ResultsUserId, operation?: VALID_OPERATION): Promise<{ statistics: StatisticByOperation[] }> => {
   const condition = userId
     ? operation
       ? and(eq(results.userId, userId), eq(results.operation, operation))
@@ -14,9 +15,9 @@ export const getStatisticsByOperation = async (userId: ResultsUserId, operation?
     .select({
       userId: results.userId,
       operation: results.operation,
-      skippedQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${ResultStatus.SKIPPED} THEN 1 ELSE 0 END)`,
-      correctQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${ResultStatus.CORRECT} THEN 1 ELSE 0 END)`,
-      incorrectQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${ResultStatus.INCORRECT} THEN 1 ELSE 0 END)`
+      skippedQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.SKIPPED} THEN 1 ELSE 0 END)`,
+      correctQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.CORRECT} THEN 1 ELSE 0 END)`,
+      incorrectQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.INCORRECT} THEN 1 ELSE 0 END)`
     })
     .from(results)
     .where(condition)
@@ -25,7 +26,7 @@ export const getStatisticsByOperation = async (userId: ResultsUserId, operation?
   return { statistics: c }
 }
 
-export const getStatisticsByStatus = async (userId: ResultsUserId, status?: ResultStatus) => {
+export const getStatisticsByStatus = async (userId: ResultsUserId, status?: RESULT_STATUS) => {
   const condition = userId
     ? status
       ? and(eq(results.userId, userId), eq(results.status, status))

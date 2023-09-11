@@ -1,4 +1,4 @@
-import { GAME_MODE, PossibleResult, RoundResult } from "@/types/game"
+import { GAME_MODE, RESULT_STATUS, RoundResult } from "@/types/game"
 import { BsCheckCircleFill, BsFillSkipEndCircleFill, BsFillXCircleFill } from 'react-icons/bs'
 
 import useGame from "@/hooks/useGame"
@@ -25,13 +25,13 @@ function ResultItem({ result }: ResultItemProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const renderResult = (answer?: PossibleResult) => {
-    if (!answer) return null;
+  const renderResult = (answer?: RESULT_STATUS) => {
+    if (answer === undefined) return null;
 
     switch (answer) {
-      case 'correct': return <BsCheckCircleFill color="green" />
-      case 'incorrect': return <BsFillXCircleFill color="red" />
-      case 'skipped': return <BsFillSkipEndCircleFill color="gray" />
+      case RESULT_STATUS.CORRECT: return <BsCheckCircleFill color="green" />
+      case RESULT_STATUS.INCORRECT: return <BsFillXCircleFill color="red" />
+      case RESULT_STATUS.SKIPPED: return <BsFillSkipEndCircleFill color="gray" />
     }
   }
 

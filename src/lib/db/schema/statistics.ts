@@ -1,4 +1,4 @@
-import { ResultStatus, VALID_OPERATION } from "@/types/game";
+import { RESULT_STATUS, VALID_OPERATION } from "@/types/game";
 import {
   int,
   mysqlEnum,
@@ -15,7 +15,7 @@ const VALID_OPERATIONS_ARRAY = ['+', '-', '*', '/', '**', 'sqrt'] as const
 export const results = mysqlTable("results", {
   id: serial('id').notNull().primaryKey(),
   userId: varchar('user_id', { length: 255 }),
-  status: int('status').$type<ResultStatus>().notNull(),
+  status: int('status').$type<RESULT_STATUS>().notNull(),
   operation: mysqlEnum('operation', VALID_OPERATIONS_ARRAY).$type<VALID_OPERATION>().notNull(),
   createdAt: timestamp("created_at", {
     mode: "date",

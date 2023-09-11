@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import useGame from "@/hooks/useGame";
 import { generate } from "@/lib/game/generate";
 import { trpc } from "@/lib/trpc/client";
-import { OperationReturn, ResultStatus } from "@/types/game";
+import { OperationReturn, RESULT_STATUS } from "@/types/game";
 import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -33,18 +33,18 @@ export default function Round({ forcedOperation, round = 0, onCorrect, onIncorre
   const { register, handleSubmit } = useForm<Form>()
 
   const onSubmit: SubmitHandler<Form> = ({ answer }) => {
-    let status: ResultStatus;
+    let status: RESULT_STATUS;
     if (!answer) {
-      status = ResultStatus.SKIPPED
+      status = RESULT_STATUS.SKIPPED
       onSkip(operationData)
     } else {
       const _answer = parseFloat(answer.replace(',', '.'))
 
       if (_answer === result) {
-        status = ResultStatus.CORRECT
+        status = RESULT_STATUS.CORRECT
         onCorrect(operationData)
       } else {
-        status = ResultStatus.INCORRECT
+        status = RESULT_STATUS.INCORRECT
         onIncorrect(operationData)
       }
     }

@@ -2,7 +2,7 @@
 
 import useGame, { GameProvider } from "@/hooks/useGame"
 import { NORMAL_MODE_ROUNDS } from "@/lib/constants/game"
-import { DetailedResult, GAME_MODE, GAME_STATE, OperationReturn, PossibleResult, RoundResult } from "@/types/game"
+import { DetailedResult, GAME_MODE, GAME_STATE, OperationReturn, RESULT_STATUS, RoundResult } from "@/types/game"
 import { LayoutGroup } from "framer-motion"
 import { ElementRef, useEffect, useMemo, useRef, useState } from "react"
 import Timer from "../general/timer"
@@ -22,15 +22,12 @@ function Game({ onReset }: GameProps) {
 
   const [gameState, setGameState] = useState(GAME_STATE.UNSTARTED)
 
-  const [round, setRound] = useState(1)
+  const [answers, setAnswers] = useState<DetailedResult[]>([])
 
-  // answers
-  const [correctAnswers, setCorrectAnswers] = useState<DetailedResult[]>([])
-  const [incorrectAnswers, setIncorrectAnswers] = useState<DetailedResult[]>([])
-  const [skippedAnswers, setSkippedAnswers] = useState<DetailedResult[]>([])
+  const round = answers.length + 1
 
   const answersByRound: RoundResult[] = useMemo(() => {
-    const allAnswers: RoundResult[] = [...correctAnswers, ...incorrectAnswers, ...skippedAnswers]
+    const allAnswers: RoundResult[] = [...answers]
 
     if (gamemode === GAME_MODE.NORMAL && allAnswers.length < NORMAL_MODE_ROUNDS) {
       const remainingAnswers: RoundResult[] = new Array(NORMAL_MODE_ROUNDS - allAnswers.length)
@@ -45,7 +42,7 @@ function Game({ onReset }: GameProps) {
     }
 
     return allAnswers.sort((a, b) => a.round - b.round)
-  }, [gamemode, correctAnswers, incorrectAnswers, skippedAnswers])
+  }, [gamemode, answers])
 
   useEffect(() => {
     if (gamemode === GAME_MODE.UNLIMITED) return;
@@ -65,25 +62,8 @@ function Game({ onReset }: GameProps) {
     }
   }, [gameState])
 
-  // useEffect(() => {
-  //   switch (gameState) {
-  //     case GAME_STATE.IN_PROGRESS:
-  //       startTimer()
-  //     case GAME_STATE.FINISHED:
-  //       stopTimer()
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [gameState])
-
-  const UPDATE_FUNCTIONS: Record<PossibleResult, React.Dispatch<React.SetStateAction<DetailedResult[]>>> = {
-    correct: setCorrectAnswers,
-    incorrect: setIncorrectAnswers,
-    skipped: setSkippedAnswers
-  }
-
-  const handleNextRound = (result: PossibleResult) => (operation: OperationReturn) => {
-    UPDATE_FUNCTIONS[result](prev => [...prev, { ...operation, round, answer: result }])
-    setRound(prev => prev + 1)
+  const handleNextRound = (result: RESULT_STATUS) => (operation: OperationReturn) => {
+    setAnswers(prev => [...prev, { ...operation, round, answer: result }])
   }
 
   const renderState = () => {
@@ -121,9 +101,9 @@ function Game({ onReset }: GameProps) {
             <Round
               key={round}
               round={round}
-              onCorrect={handleNextRound('correct')}
-              onIncorrect={handleNextRound('incorrect')}
-              onSkip={handleNextRound('skipped')}
+              onCorrect={handleNextRound(RESULT_STATUS.CORRECT)}
+              onIncorrect={handleNextRound(RESULT_STATUS.INCORRECT)}
+              onSkip={handleNextRound(RESULT_STATUS.SKIPPED)}
             />
 
             {gamemode === GAME_MODE.UNLIMITED && (

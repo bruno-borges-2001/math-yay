@@ -16,7 +16,7 @@ export enum GAME_DIFFICULTY {
   IMPOSSIBLE = 'impossible',
 }
 
-export enum ResultStatus {
+export enum RESULT_STATUS {
   SKIPPED,
   CORRECT,
   INCORRECT
@@ -30,6 +30,5 @@ export type OperationReturn = {
   result: number
 }
 
-export type PossibleResult = 'correct' | 'incorrect' | 'skipped'
-export type RoundResult = { answer?: PossibleResult, round: number }
+export type RoundResult = { answer?: RESULT_STATUS, round: number }
 export type DetailedResult = OperationReturn & RoundResult
