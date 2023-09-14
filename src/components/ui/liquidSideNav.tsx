@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -35,6 +36,8 @@ interface NavProps {
 }
 
 const Nav = ({ isOpen, setIsOpen }: NavProps) => {
+  const pathname = usePathname()
+
   const bodyRef = useRef<HTMLBodyElement | null>(null)
   const { data: session } = useSession()
 
@@ -43,6 +46,10 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
     bodyRef.current = document.querySelector('body')
   })
 
+  useEffect(() => {
+    setIsOpen(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname])
 
   return bodyRef.current && createPortal(
     <motion.nav
@@ -70,13 +77,13 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
         className="flex flex-col gap-4 absolute bottom-8 left-8"
       >
         <p>Play</p>
-        <NavLink text="Normal Mode" href="/" onClick={() => setIsOpen(false)} />
-        <NavLink text="Unlimited Mode" href="/unlimited" onClick={() => setIsOpen(false)} />
+        <NavLink text="Normal Mode" href="/" />
+        <NavLink text="Unlimited Mode" href="/unlimited" />
 
         {session ? (
           <>
             <p>Your Account</p>
-            <NavLink text="Dashboard" href="/dashboard" onClick={() => setIsOpen(false)} />
+            <NavLink text="Dashboard" href="/dashboard" />
             <NavLink text="Log Out" variant="destruction" onClick={() => signOut()} />
           </>
         ) : (
