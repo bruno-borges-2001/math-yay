@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <AuthLoader />
 
-          <div className='fixed top-3 left-3'>
+          <div className='fixed top-3 left-3 z-[500]'>
             <LiquidSideNav />
           </div>
 

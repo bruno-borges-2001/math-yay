@@ -17,12 +17,10 @@ const variants: Variants = {
   },
 };
 
-export default function Loader() {
+export default function LoaderIndicator() {
   return (
     <motion.div
-      transition={{
-        staggerChildren: 0.25,
-      }}
+      transition={{ staggerChildren: 0.25 }}
       initial="initial"
       animate="animate"
       className="flex gap-1"
