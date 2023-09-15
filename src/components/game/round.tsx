@@ -5,6 +5,7 @@ import useGame from "@/hooks/useGame";
 import { generate } from "@/lib/game/generate";
 import { trpc } from "@/lib/trpc/client";
 import { OperationReturn, RESULT_STATUS } from "@/types/game";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -23,6 +24,8 @@ type Form = {
 }
 
 export default function Round({ forcedOperation, round = 0, onCorrect, onIncorrect, onSkip }: RoundProps) {
+  const { status: sessionStatus } = useSession()
+
   const { gameDifficulty } = useGame()
 
   const { mutate: addStatistic } = trpc.statistics.addStatistic.useMutation()
@@ -49,6 +52,7 @@ export default function Round({ forcedOperation, round = 0, onCorrect, onIncorre
       }
     }
 
+    if (sessionStatus !== 'authenticated') return
     addStatistic({ operation: operationData.operation, status })
   }
 
