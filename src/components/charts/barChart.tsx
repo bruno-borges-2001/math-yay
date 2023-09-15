@@ -12,7 +12,7 @@ export default function BarChart({ children, data, ...rest }: BarChartProps) {
       {
         (width, height) =>
           <_BarChart data={data} width={width} height={height}>
-            {children(width ?? 0, height ?? 0)}
+            {children(width, height)}
             <Tooltip />
           </_BarChart>
       }

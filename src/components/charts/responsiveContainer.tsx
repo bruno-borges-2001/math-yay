@@ -1,7 +1,9 @@
 import { useResizeDetector } from "react-resize-detector";
 
+import { ResponsiveContainer as ResponsiveChartContainer } from 'recharts';
+
 export interface ChartContainerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
-  children: (width: number, height: number) => React.ReactNode
+  children: (width: number, height: number) => React.ReactElement<any, string | React.JSXElementConstructor<any>>
 }
 
 export default function ResponsiveContainer({ children, ...rest }: ChartContainerProps) {
@@ -9,7 +11,9 @@ export default function ResponsiveContainer({ children, ...rest }: ChartContaine
 
   return (
     <div ref={ref} {...rest}>
-      {children(width, height)}
+      <ResponsiveChartContainer height={height} width={width}>
+        {children(width, height)}
+      </ResponsiveChartContainer>
     </div>
   )
 }

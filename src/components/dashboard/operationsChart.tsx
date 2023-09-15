@@ -1,4 +1,4 @@
-import { OPERATIONS_COLOR, OperationName, getOperationByName, getOperationName } from "@/lib/dashboard/utils";
+import { OperationName, getOperationByName, getOperationName } from "@/lib/dashboard/utils";
 import { VALID_OPERATION } from "@/types/game";
 import { StatisticByOperation } from "@/types/statistics";
 import { Bar, Cell, LabelList, Tooltip, XAxis, YAxis } from "recharts";
@@ -26,20 +26,21 @@ export default function OperationsChart({ data, onBarClick, selectedOperation }:
       {() => (
         <>
           <XAxis dataKey="name" className="cursor-pointer" onClick={(label: any) => onBarClick && onBarClick(getOperationByName(label.value as OperationName))} />
-          <YAxis />
+          <YAxis width={0} />
           <Tooltip />
           <Bar
             dataKey="Questions Answered"
             onClick={(value: { operation: VALID_OPERATION }) => onBarClick && onBarClick(value.operation)}
+            fill="#4f46e5"
           >
             {parsedData.map(el => (
               <Cell
                 key={el.name}
-                fill={OPERATIONS_COLOR[el.name]}
+                // fill={OPERATIONS_COLOR[el.name]}
                 className="cursor-pointer"
                 opacity={selectedOperation && selectedOperation !== el.operation ? 0.5 : 1} />
             ))}
-            <LabelList dataKey="Questions Answered" position="insideTop" formatter={(value: number) => value || ''} fill="black" />
+            <LabelList dataKey="Questions Answered" position="top" formatter={(value: number) => value || ''} fill="black" />
           </Bar>
         </>
       )}

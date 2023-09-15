@@ -1,5 +1,6 @@
 import AuthLoader from '@/components/auth/AuthLoader'
 import LiquidSideNav from '@/components/ui/liquidSideNav'
+import ModeToggle from '@/components/ui/modeToggle'
 import Providers from '@/hooks'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -25,6 +26,10 @@ export default function RootLayout({
 
           <div className='fixed top-3 left-3 z-[500]'>
             <LiquidSideNav />
+          </div>
+
+          <div className='fixed top-8 right-8'>
+            <ModeToggle />
           </div>
 
           {children}

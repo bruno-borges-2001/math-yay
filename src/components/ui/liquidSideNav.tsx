@@ -53,12 +53,12 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
 
   return bodyRef.current && createPortal(
     <motion.nav
-      className="fixed top-0 bottom-0 w-screen bg-white dark:bg-black z-50"
+      className="fixed top-0 bottom-0 w-screen bg-white dark:bg-black z-[1000]"
       animate={isOpen ? "open" : "closed"}
       variants={navVariants}
       initial="closed"
     >
-      <div className="absolute top-8 right-8 flex flex-col sm:flex-row-reverse items-center">
+      <div className="absolute top-8 right-8 flex flex-col gap-4 sm:flex-row-reverse items-center">
         <motion.button
           className="text-3xl bg-white dark:bg-black hover:text-indigo-500 border-[1px] border-transparent hover:border-indigo-500 transition-colors p-4 rounded-full"
           whileHover={{ rotate: "180deg" }}
@@ -76,19 +76,21 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
         variants={linkWrapperVariants}
         className="flex flex-col gap-4 absolute bottom-8 left-8"
       >
+        {!session && <NavLink text="Sign In" variant="construction" onClick={() => signIn('google')} className="fixed top-8 left-8" />}
+
         <p>Play</p>
         <NavLink text="Normal Mode" href="/" />
         <NavLink text="Unlimited Mode" href="/unlimited" />
 
-        {session ? (
+        {session && (
           <>
             <p>Your Account</p>
-            <NavLink text="Dashboard" href="/dashboard" />
+            <NavLink text="Your Stats" href="/dashboard" variant="small" />
             <NavLink text="Log Out" variant="destruction" onClick={() => signOut()} />
           </>
-        ) : (
-          <NavLink text="Sign In" variant="construction" onClick={() => signIn('google')} className="fixed top-8 left-8" />
         )}
+
+        <NavLink text="About" href="/about" className="fixed bottom-8 right-8" variant="small" />
 
       </motion.div>
     </motion.nav>,
@@ -101,7 +103,7 @@ interface NavLinkProps extends React.HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
   href?: string;
 
-  variant?: 'default' | 'construction' | 'destruction'
+  variant?: 'default' | 'construction' | 'destruction' | 'small'
 }
 
 const NavLink = ({ text, href, onClick, className, variant = 'default' }: NavLinkProps) => {
@@ -110,7 +112,8 @@ const NavLink = ({ text, href, onClick, className, variant = 'default' }: NavLin
       className={cn("cursor-pointer inline-block z-10 w-fit font-black transition-colors", className, {
         'text-7xl hover:text-indigo-500': variant === 'default',
         'text-5xl hover:text-green-800': variant === 'construction',
-        'text-5xl hover:text-red-600 mt-8': variant === 'destruction'
+        'text-5xl hover:text-red-600 mt-8': variant === 'destruction',
+        'text-5xl': variant === 'small'
       })}
       variants={navLinkVariants}
       transition={{

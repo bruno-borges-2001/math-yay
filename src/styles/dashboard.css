@@ -1,11 +1,33 @@
 .dashboard-wrapper {
   --header-height: calc(62px + 1.5rem);
+  --max-height: calc(100vh - var(--header-height));
 
   margin-top: var(--header-height);
-  height: calc(100vh - var(--header-height));
-  @apply p-5 w-full overflow-hidden grid md:grid-cols-2;
+  @apply p-5 w-full md:overflow-hidden grid md:grid-cols-2 gap-4 md:h-[var(--max-height)];
 }
 
 .section {
-  @apply border rounded-3xl shadow-2xl p-5 bg-white flex flex-col;
+  --max-section-height: calc(var(--max-height) - 2.5rem);
+  --max-section-width: calc(100vw - 2.5rem);
+  @apply border max-h-[var(--max-section-height)] max-w-[var(--max-section-width)] rounded-3xl shadow-xl p-5 bg-white dark:bg-black flex flex-col gap-4 h-[var(--max-height)] md:h-full;
+}
+
+.section-part {
+  @apply flex flex-col grow shrink h-full gap-3 max-h-[50%];
+}
+
+.section-part > h1 {
+  @apply font-black text-slate-700 dark:text-slate-200 text-xl;
+}
+
+.recharts-layer text {
+  @apply fill-black dark:fill-white;
+}
+
+.recharts-tooltip-label {
+  @apply text-black;
+}
+
+.recharts-rectangle.recharts-tooltip-cursor {
+  @apply dark:fill-slate-600;
 }
