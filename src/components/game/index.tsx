@@ -72,7 +72,7 @@ function Game({ onReset }: GameProps) {
       case GAME_STATE.UNSTARTED:
         return (
           <div className="flex flex-col items-center text-center">
-            <div className="fixed top-8">
+            <div className="fixed-container center">
               <GameDifficultySelect />
             </div>
 

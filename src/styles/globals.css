@@ -25,3 +25,7 @@ body {
 .fixed-container.right {
   @apply left-[unset] right-5;
 }
+
+.fixed-container.center {
+  @apply left-[unset] right-[unset] top-[calc(var(--header-height)_+_0.75rem)] sm:top-3;
+}
