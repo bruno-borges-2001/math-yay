@@ -19,9 +19,7 @@ interface RoundProps {
   forcedOperation?: OperationReturn
 }
 
-type Form = {
-  answer: string
-}
+type Form = { answer: string }
 
 export default function Round({ forcedOperation, round = 0, onCorrect, onIncorrect, onSkip }: RoundProps) {
   const { status: sessionStatus } = useSession()
@@ -53,29 +51,17 @@ export default function Round({ forcedOperation, round = 0, onCorrect, onIncorre
     }
 
     if (sessionStatus !== 'authenticated') return
-    addStatistic({ operation: operationData.operation, status })
+    addStatistic({ operation, status })
   }
 
   const renderOperation = () => {
     switch (operation) {
       case 'sqrt':
-        return (
-          <>
-            √{operands[0]}
-          </>
-        )
+        return (<>√{operands[0]}</>)
       case '**':
-        return (
-          <>
-            {operands[0]}<span className="absolute text-sm">{operands[1]}</span>
-          </>
-        )
+        return (<>{operands[0]}<span className="absolute text-sm">{operands[1]}</span></>)
       default:
-        return (
-          <>
-            {operands[0]} {operation} {operands[1]}
-          </>
-        )
+        return (<>{operands[0]} {operation} {operands[1]}</>)
     }
   }
 

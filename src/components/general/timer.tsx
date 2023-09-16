@@ -6,6 +6,7 @@ import { forwardRef, memo, useImperativeHandle, useMemo } from "react"
 interface TimerRef {
   startTimer: () => void
   stopTimer: () => number
+  timerValue: string
 }
 
 
@@ -28,7 +29,8 @@ const Timer = forwardRef<TimerRef>((_, ref) => {
 
   useImperativeHandle(ref, () => ({
     startTimer,
-    stopTimer
+    stopTimer,
+    timerValue: parsedValue
   }))
 
   return <div className="general-container w-32 text-center">{parsedValue}</div>

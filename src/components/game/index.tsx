@@ -10,6 +10,7 @@ import { Button } from "../ui/button"
 import GameDifficultySelect from "./gameDifficultySelect"
 import ResultList from "./resultList"
 import Round from "./round"
+import ShareResultButton from "./shareResultButton"
 
 interface GameProps {
   onReset: () => void
@@ -138,7 +139,8 @@ function Game({ onReset }: GameProps) {
               <ResultList results={answersByRound} />
             </section>
 
-            <div className="flex flex-col justify-center items-center ">
+            <div className="flex flex-col justify-center items-center">
+              <ShareResultButton results={answersByRound} time={timerRef.current?.timerValue ?? ''} />
               <Button variant="primary" onClick={onReset}>Restart</Button>
             </div>
           </div>
