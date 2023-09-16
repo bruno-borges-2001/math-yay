@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --header-height: 62px;
+}
+
 body {
   transition: all 0.3s ease;
 }
@@ -12,4 +16,12 @@ body {
 
 .general-container {
   @apply px-3 py-3 bg-white dark:bg-slate-950 rounded-xl shadow;
+}
+
+.fixed-container {
+  @apply fixed top-3 left-5 h-[62px] flex items-center z-[500];
+}
+
+.fixed-container.right {
+  @apply left-[unset] right-5;
 }

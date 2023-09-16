@@ -6,5 +6,5 @@ import Loader from "../general/loader";
 export default function AuthLoader() {
   const { status } = useSession();
 
-  return <Loader isLoading={status === 'loading'} />
+  return <Loader isLoading={status === 'loading'} caption="Getting everything ready for you" />
 }

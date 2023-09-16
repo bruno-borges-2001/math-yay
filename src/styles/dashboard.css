@@ -1,15 +1,21 @@
-.dashboard-wrapper {
-  --header-height: calc(62px + 1.5rem);
-  --max-height: calc(100vh - var(--header-height));
+.header-content {
+  left: calc(2rem + var(--header-height));
 
-  margin-top: var(--header-height);
-  @apply p-5 w-full md:overflow-hidden grid md:grid-cols-2 gap-4 md:h-[var(--max-height)];
+  @apply absolute top-3 h-[62px] items-center ml-4 hidden sm:flex;
+}
+
+.dashboard-wrapper {
+  --header-offset: calc(var(--header-height) + 0.75rem);
+  --max-dashboard-height: calc(100vh - var(--header-offset));
+
+  margin-top: var(--header-offset);
+  @apply p-5 w-full md:overflow-hidden grid md:grid-cols-2 gap-4 md:h-[var(--max-dashboard-height)];
 }
 
 .section {
-  --max-section-height: calc(var(--max-height) - 2.5rem);
+  --max-section-height: calc(var(--max-dashboard-height) - 2.5rem);
   --max-section-width: calc(100vw - 2.5rem);
-  @apply border max-h-[var(--max-section-height)] max-w-[var(--max-section-width)] rounded-3xl shadow-xl p-5 bg-white dark:bg-black flex flex-col gap-4 h-[var(--max-height)] md:h-full;
+  @apply border max-h-[var(--max-section-height)] max-w-[var(--max-section-width)] rounded-3xl shadow-xl p-5 bg-white dark:bg-black flex flex-col gap-4 h-[var(--max-dashboard-height)] md:h-full;
 }
 
 .section-part {
