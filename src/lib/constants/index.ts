@@ -1,16 +1,27 @@
-export const GAME_VERSION = '1.1.0'
+import { Metadata } from "next"
 
-export const OPEN_GRAPH_METADATA = {
-  type: 'website',
-  title: 'Math! Yay!',
-  description: 'Test your math knowledge',
-  url: process.env.NEXT_PUBLIC_BASE_URL,
-  images: ['/logo.png']
+export const GAME_VERSION = '1.1.1'
+
+const TITLE = 'Math! Yay!'
+const DESCRIPTION = 'Test your math knowledge'
+const IMAGE = {
+  url: process.env.NEXT_PUBLIC_BASE_URL + '/logo.png',
+  alt: 'Math! Yay! logo',
+  height: 138,
+  width: 92
 }
 
-export const TWITTER_METADATA = {
+export const OPEN_GRAPH_METADATA: Metadata['openGraph'] = {
+  type: 'website',
+  title: TITLE,
+  description: DESCRIPTION,
+  url: process.env.NEXT_PUBLIC_BASE_URL,
+  images: [IMAGE]
+}
+
+export const TWITTER_METADATA: Metadata['twitter'] = {
   card: 'summary_large_image',
-  title: 'Math! Yay!',
-  description: 'Test your math knowledge',
-  images: ['/logo.png']
+  title: TITLE,
+  description: DESCRIPTION,
+  images: [IMAGE]
 }
