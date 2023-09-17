@@ -1,6 +1,6 @@
 # Math! Yay!
 
-Hey everyone! I want to share with you this project I've been working on to train my Next JS Skills, try new libraries and frameworks and share my love for math (I know... ~nerd~, haha sorry).
+Hey everyone! I want to share with you this project I've been working on to train my Next JS Skills, try new libraries and frameworks and share my love for math (I know... _nerd_, haha sorry).
 
 ## The Game
 
