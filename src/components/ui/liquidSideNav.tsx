@@ -20,7 +20,7 @@ export default function LiquidSideNav() {
           whileHover={{ rotate: "180deg" }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(true)}
-          className="text-3xl bg-offwhite dark:bg-slate-900 text-black dark:text-white hover:text-indigo-500 transition-colors p-4 rounded-full"
+          className="text-3xl bg-offwhite dark:bg-slate-900 text-black dark:text-offwhite hover:text-indigo-500 transition-colors p-4 rounded-full"
         >
           <FiMenu />
         </motion.button>

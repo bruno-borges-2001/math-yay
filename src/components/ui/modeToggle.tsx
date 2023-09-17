@@ -13,14 +13,14 @@ export default function ModeToggle({ vertical }: { vertical?: boolean }) {
   return theme && (
     <div className={cn("relative flex w-fit items-center rounded-full sm:flex-row", { 'flex-col': vertical })}>
       <button
-        className={cn(TOGGLE_CLASSES, theme === "light" ? "text-white" : "text-slate-300")}
+        className={cn(TOGGLE_CLASSES, theme === "light" ? "text-offwhite" : "text-slate-300")}
         onClick={() => setTheme("light")}
       >
         <FiMoon className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10 hidden sm:block">Light</span>
       </button>
       <button
-        className={cn(TOGGLE_CLASSES, theme === "dark" ? "text-white" : "text-slate-800")}
+        className={cn(TOGGLE_CLASSES, theme === "dark" ? "text-offwhite" : "text-slate-800")}
         onClick={() => setTheme("dark")}
       >
         <FiSun className="relative z-10 text-lg md:text-sm" />

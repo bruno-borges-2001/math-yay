@@ -35,6 +35,6 @@ export default function ShareResultButton({ time, results }: ShareResultButtonPr
   const shareHref = getTwitterHref(process.env.NEXT_PUBLIC_BASE_URL + pathname, text)
 
   return (
-    <Button asChild className="my-3 gap-2 !bg-[#1DA1F2] !text-white hover:brightness-110"><a href={shareHref} target="_blank">Share your Results on Twitter<FaTwitter /></a></Button>
+    <Button asChild className="my-3 gap-2 !bg-[#1DA1F2] !text-offwhite hover:brightness-110"><a href={shareHref} target="_blank">Share your Results on Twitter<FaTwitter /></a></Button>
   )
 }
