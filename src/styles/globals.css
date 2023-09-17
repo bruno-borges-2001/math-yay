@@ -18,6 +18,13 @@ body {
   @apply px-3 py-3 bg-white dark:bg-slate-950 rounded-xl shadow;
 }
 
+.text-gradient {
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
 .fixed-container {
   @apply fixed top-3 left-5 h-[62px] flex items-center z-[500];
 }

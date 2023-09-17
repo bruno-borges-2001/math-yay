@@ -1,5 +1,6 @@
 'use client'
 
+import Logo from "@/assets/logo"
 import useGame, { GameProvider } from "@/hooks/useGame"
 import { NORMAL_MODE_ROUNDS } from "@/lib/constants/game"
 import { DetailedResult, GAME_MODE, GAME_STATE, OperationReturn, RESULT_STATUS, RoundResult } from "@/types/game"
@@ -76,8 +77,10 @@ function Game({ onReset }: GameProps) {
               <GameDifficultySelect />
             </div>
 
-            <h1 className="text-5xl font-black">Welcome to Math! Yay!</h1>
-            <h2 className="text-xl font-semibold mt-4 mb-8">Solve the math questions the fastest you can</h2>
+            <Logo height={200} />
+
+            <h1 className="text-5xl font-black mt-4">Welcome to Math! Yay!</h1>
+            <h2 className="text-xl font-semibold mt-4 mb-8 text-orange-600">Solve the math questions the fastest you can</h2>
 
             <Button
               variant="primary"

@@ -17,6 +17,9 @@ const config: Config = {
       },
     },
     extend: {
+      colors: {
+        primary: '#7c3aed'
+      },
       keyframes: {
         "accordion-down": {
           from: { height: '0' },
