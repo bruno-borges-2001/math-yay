@@ -77,7 +77,7 @@ function Game({ onReset }: GameProps) {
               <GameDifficultySelect />
             </div>
 
-            <Logo height={200} />
+            <Logo height={200} className="hidden sm:block" />
 
             <h1 className="text-5xl font-black mt-4">Welcome to Math! Yay!</h1>
             <h2 className="text-xl font-semibold mt-4 mb-8 text-orange-600">Solve the math questions the fastest you can</h2>

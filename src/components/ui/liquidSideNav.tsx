@@ -72,11 +72,13 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
         </div>
       </div>
 
+      {!session && <NavLink text="Sign In" variant="construction" onClick={() => signIn('google')} className="fixed top-8 left-8" />}
+      <NavLink text="About" href="/about" className="fixed bottom-8 right-8" variant="small" />
+
       <motion.div
         variants={linkWrapperVariants}
         className="flex flex-col gap-4 absolute bottom-8 left-8"
       >
-        {!session && <NavLink text="Sign In" variant="construction" onClick={() => signIn('google')} className="fixed top-8 left-8" />}
 
         <p>Play</p>
         <NavLink text="Normal Mode" href="/" />
@@ -89,9 +91,6 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
             <NavLink text="Log Out" variant="destruction" onClick={() => signOut()} />
           </>
         )}
-
-        <NavLink text="About" href="/about" className="fixed bottom-8 right-8" variant="small" />
-
       </motion.div>
     </motion.nav>,
     bodyRef.current
@@ -109,11 +108,11 @@ interface NavLinkProps extends React.HTMLAttributes<HTMLDivElement> {
 const NavLink = ({ text, href, onClick, className, variant = 'default' }: NavLinkProps) => {
   const Component = (
     <motion.div
-      className={cn("cursor-pointer inline-block z-10 w-fit font-black transition-colors", className, {
-        'text-7xl hover:text-indigo-500': variant === 'default',
-        'text-5xl hover:text-green-800': variant === 'construction',
-        'text-5xl hover:text-red-600 mt-8': variant === 'destruction',
-        'text-5xl': variant === 'small'
+      className={cn("cursor-pointer inline-block z-10 w-fit font-black transition-colors text-2xl", className, {
+        'sm:text-7xl hover:text-indigo-500': variant === 'default',
+        'sm:text-5xl hover:text-green-800': variant === 'construction',
+        'sm:text-5xl hover:text-red-600 mt-8': variant === 'destruction',
+        'sm:text-5xl': variant === 'small'
       })}
       variants={navLinkVariants}
       transition={{
