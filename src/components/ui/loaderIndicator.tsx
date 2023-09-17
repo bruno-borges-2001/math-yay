@@ -25,11 +25,11 @@ export default function LoaderIndicator() {
       animate="animate"
       className="flex gap-1"
     >
-      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-white" />
-      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-white" />
+      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-offwhite" />
+      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-offwhite" />
+      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-offwhite" />
+      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-offwhite" />
+      <motion.div variants={variants} className="h-12 w-2 bg-gray-700 dark:bg-offwhite" />
     </motion.div>
   );
 };

@@ -18,7 +18,8 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: '#7c3aed'
+        primary: '#7c3aed',
+        offwhite: '#F5F5F5'
       },
       keyframes: {
         "accordion-down": {

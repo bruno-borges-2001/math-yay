@@ -15,7 +15,7 @@
 .section {
   --max-section-height: calc(var(--max-dashboard-height) - 2.5rem);
   --max-section-width: calc(100vw - 2.5rem);
-  @apply border max-h-[var(--max-section-height)] max-w-[var(--max-section-width)] rounded-3xl shadow-xl p-5 bg-white dark:bg-black flex flex-col gap-4 h-[var(--max-dashboard-height)] md:h-full;
+  @apply border max-h-[var(--max-section-height)] max-w-[var(--max-section-width)] rounded-3xl shadow-xl p-5 bg-offwhite dark:bg-slate-950 flex flex-col gap-4 h-[var(--max-dashboard-height)] md:h-full;
 }
 
 .section-part {

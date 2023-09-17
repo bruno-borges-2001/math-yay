@@ -20,7 +20,7 @@ export default function LiquidSideNav() {
           whileHover={{ rotate: "180deg" }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(true)}
-          className="text-3xl bg-white dark:bg-slate-900 text-black dark:text-white hover:text-indigo-500 transition-colors p-4 rounded-full"
+          className="text-3xl bg-offwhite dark:bg-slate-900 text-black dark:text-white hover:text-indigo-500 transition-colors p-4 rounded-full"
         >
           <FiMenu />
         </motion.button>
@@ -53,14 +53,14 @@ const Nav = ({ isOpen, setIsOpen }: NavProps) => {
 
   return bodyRef.current && createPortal(
     <motion.nav
-      className="fixed top-0 bottom-0 w-screen bg-white dark:bg-slate-900 z-[1000]"
+      className="fixed top-0 bottom-0 w-screen bg-offwhite dark:bg-slate-900 z-[1000]"
       animate={isOpen ? "open" : "closed"}
       variants={navVariants}
       initial="closed"
     >
       <div className="absolute top-8 right-8 flex flex-col gap-4 sm:flex-row-reverse items-center">
         <motion.button
-          className="text-3xl bg-white dark:bg-slate-900 hover:text-indigo-500 border-[1px] border-transparent hover:border-indigo-500 transition-colors p-4 rounded-full"
+          className="text-3xl bg-offwhite dark:bg-slate-900 hover:text-indigo-500 border-[1px] border-transparent hover:border-indigo-500 transition-colors p-4 rounded-full"
           whileHover={{ rotate: "180deg" }}
           onClick={() => setIsOpen(false)}
           whileTap={{ scale: 0.9 }}
