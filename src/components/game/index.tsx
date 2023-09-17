@@ -1,6 +1,7 @@
 'use client'
 
 import Logo from "@/assets/logo"
+import useAuthStatusNotification from "@/hooks/useAuthStatusNotification"
 import useGame, { GameProvider } from "@/hooks/useGame"
 import { NORMAL_MODE_ROUNDS } from "@/lib/constants/game"
 import { DetailedResult, GAME_MODE, GAME_STATE, OperationReturn, RESULT_STATUS, RoundResult } from "@/types/game"
@@ -160,6 +161,8 @@ function Game({ onReset }: GameProps) {
 
 export default function GameWrapper({ mode = GAME_MODE.NORMAL }: { mode: GAME_MODE }) {
   const [key, setKey] = useState('')
+
+  useAuthStatusNotification()
 
   return (
     <GameProvider mode={mode}>

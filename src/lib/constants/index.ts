@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 
-export const GAME_VERSION = '1.1.1'
+export const GAME_VERSION = '1.2.0'
 
 const TITLE = 'Math! Yay!'
 const DESCRIPTION = 'Test your math knowledge'
