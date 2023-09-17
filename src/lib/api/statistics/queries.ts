@@ -1,5 +1,4 @@
 import { db } from "@/lib/db"
-import { users } from "@/lib/db/schema/auth"
 import { ResultsUserId, results } from "@/lib/db/schema/statistics"
 import { RESULT_STATUS, VALID_OPERATION } from "@/types/game"
 import { StatisticByOperation } from "@/types/statistics"
@@ -15,14 +14,12 @@ export const getStatisticsByOperation = async (userId: ResultsUserId, operation?
   const c = await db
     .select({
       userId: results.userId,
-      userName: users.name,
       operation: results.operation,
       skippedQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.SKIPPED} THEN 1 ELSE 0 END)`,
       correctQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.CORRECT} THEN 1 ELSE 0 END)`,
       incorrectQuestions: sql<number>`SUM(CASE WHEN ${results.status} = ${RESULT_STATUS.INCORRECT} THEN 1 ELSE 0 END)`
     })
     .from(results)
-    .leftJoin(users, eq(users.id, results.userId))
     .where(condition)
     .groupBy(results.userId, results.operation)
 

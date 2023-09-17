@@ -1,12 +1,14 @@
+import type { AdapterAccount } from "@auth/core/adapters";
 import {
   int,
-  timestamp,
+  longtext,
   mysqlTable,
   primaryKey,
-  varchar,
-  longtext
+  timestamp,
+  varchar
 } from "drizzle-orm/mysql-core";
-import type { AdapterAccount } from "@auth/core/adapters";
+import { createSelectSchema } from "drizzle-zod";
+import { z } from 'zod';
 
 export const users = mysqlTable("user", {
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
@@ -60,3 +62,9 @@ export const verificationTokens = mysqlTable(
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
+
+export const selectAuthSchema = createSelectSchema(users);
+export const usersIdSchema = selectAuthSchema.pick({ id: true });
+
+export type User = z.infer<typeof selectAuthSchema>;
+export type UserId = z.infer<typeof usersIdSchema>["id"];

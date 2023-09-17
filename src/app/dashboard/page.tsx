@@ -24,7 +24,7 @@ export default function Dashboard() {
   const { data, isLoading } = trpc.statistics.getStatistics.useQuery({ userId })
 
   const isMyDashboard = !userId || session?.user.id === userId
-  const username = data?.statistics[0].userName || session?.user.name
+  const username = data?.user.name || session?.user.name
 
   const [selectedOperation, setSelectedOperation] = useState<VALID_OPERATION | null>(null)
 
