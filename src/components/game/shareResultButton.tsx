@@ -17,7 +17,7 @@ function buildTweetText(results: RoundResult[], gamemode: GAME_MODE, difficulty:
   const answeredResults = results.filter(el => el.answer !== undefined)
   const correctAnswersCount = answeredResults.filter(el => el.answer === RESULT_STATUS.CORRECT).length
 
-  return `Hey everyone! Check it out!\n\nI am playing Math! Yay! and just answered ${correctAnswersCount} out of ${answeredResults.length} questions correctly in ${time} playing the ${gamemode} mode (${difficulty.toUpperCase()}). It was super fun!\nYou can try it for yourself here:\n`
+  return `Hey everyone! Check it out!\n\nI am playing Math! Yay! and just answered ${correctAnswersCount} out of ${answeredResults.length} questions correctly in ${time} playing the ${gamemode} mode (${difficulty.toUpperCase()}). It was super fun!\n\nYou can try it for yourself here:\n`
 }
 
 interface ShareResultButtonProps {
