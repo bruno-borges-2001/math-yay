@@ -10,32 +10,29 @@ const TOGGLE_CLASSES = "text-sm font-medium flex items-center gap-2 px-3 md:pl-3
 export default function ModeToggle({ vertical }: { vertical?: boolean }) {
   const { theme, setTheme } = useTheme()
 
-  return (
+  return theme && (
     <div className={cn("relative flex w-fit items-center rounded-full sm:flex-row", { 'flex-col': vertical })}>
       <button
-        className={`${TOGGLE_CLASSES} ${theme === "light" ? "text-white" : "text-slate-300"}`}
+        className={cn(TOGGLE_CLASSES, theme === "light" ? "text-white" : "text-slate-300")}
         onClick={() => setTheme("light")}
       >
         <FiMoon className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10 hidden sm:block">Light</span>
       </button>
       <button
-        className={`${TOGGLE_CLASSES} ${theme === "dark" ? "text-white" : "text-slate-800"}`}
+        className={cn(TOGGLE_CLASSES, theme === "dark" ? "text-white" : "text-slate-800")}
         onClick={() => setTheme("dark")}
       >
         <FiSun className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10 hidden sm:block">Dark</span>
       </button>
-      {theme && (
-        <div className={cn(`absolute inset-0 z-0 flex ${theme === "dark" ? "justify-end" : "justify-start"} sm:flex-row`, { 'flex-col': vertical })}>
-          <motion.span
-            layout
-            transition={{ type: "spring", damping: 15, stiffness: 250 }}
-            className={cn("rounded-full bg-default-gradient sm:h-full sm:w-1/2", { "h-1/2 w-full": vertical, "h-full w-1/2": !vertical })}
-          />
-        </div>
-      )
-      }
+      <div className={cn("absolute inset-0 z-0 flex sm:flex-row", theme === "dark" ? "justify-end" : "justify-start", { 'flex-col': vertical })}>
+        <motion.span
+          layout
+          transition={{ type: "spring", damping: 15, stiffness: 250 }}
+          className={cn("rounded-full bg-default-gradient sm:h-full sm:w-1/2", { "h-1/2 w-full": vertical, "h-full w-1/2": !vertical })}
+        />
+      </div>
     </div >
   );
 };
