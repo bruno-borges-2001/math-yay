@@ -6,11 +6,13 @@ import { Cell, LabelList, Legend, Pie } from "recharts";
 import PieChart from "../charts/pieChart";
 
 interface StatusChartProps {
-  data: StatisticByOperation[];
+  data?: StatisticByOperation[];
   selectedOperation: VALID_OPERATION | null;
 }
 
-function parseOperations(data: StatisticByOperation[], selectedOperation: VALID_OPERATION | null) {
+function parseOperations(selectedOperation: VALID_OPERATION | null, data?: StatisticByOperation[]) {
+  if (!data) return []
+
   if (!selectedOperation) {
     return data.reduce((prev, value) => {
       return [
@@ -40,7 +42,7 @@ function parseOperations(data: StatisticByOperation[], selectedOperation: VALID_
 
 
 export default function StatusChart({ data, selectedOperation }: StatusChartProps) {
-  const parsedData = useMemo(() => parseOperations(data, selectedOperation), [data, selectedOperation])
+  const parsedData = useMemo(() => parseOperations(selectedOperation, data), [data, selectedOperation])
 
   return (
     <PieChart className="w-full h-full grow shrink">

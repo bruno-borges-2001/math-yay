@@ -10,9 +10,16 @@ import { trpc } from "@/lib/trpc/client"
 
 import '@/styles/dashboard.css'
 import { VALID_OPERATION } from "@/types/game"
+import { StatisticByOperation } from "@/types/statistics"
 import { useSession } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { cloneElement, useEffect, useState } from "react"
+
+function DataWrapper({ children, data, ...rest }: { children: React.ReactNode, data: StatisticByOperation[] }) {
+  return (
+    data.length > 0 ? cloneElement(children as JSX.Element, { data, ...rest }) : <p className="grow flex text-center items-center justify-center">No Data Available</p>
+  )
+}
 
 export default function Dashboard() {
   const params = useSearchParams()
@@ -44,21 +51,29 @@ export default function Dashboard() {
             <div className="section">
               <div className="section-part">
                 <h1>Operations Breakdown</h1>
-                <OperationsChart data={data.statistics} selectedOperation={selectedOperation} onBarClick={(operation) => setSelectedOperation(prev => prev === operation ? null : operation)} />
+                <DataWrapper data={data.statistics}>
+                  <OperationsChart selectedOperation={selectedOperation} onBarClick={(operation) => setSelectedOperation(prev => prev === operation ? null : operation)} />
+                </DataWrapper>
               </div>
               <div className="section-part">
                 <h1>Performance Summary</h1>
-                <StatusChart data={data.statistics} selectedOperation={selectedOperation} />
+                <DataWrapper data={data.statistics}>
+                  <StatusChart selectedOperation={selectedOperation} />
+                </DataWrapper>
               </div>
             </div>
             <div className="section">
               <div className="section-part">
                 <h1>Detailed Data</h1>
-                <DetailsTable data={data.statistics} />
+                <DataWrapper data={data.statistics}>
+                  <DetailsTable />
+                </DataWrapper>
               </div>
               <div className="section-part">
                 <h1>Overall Performance</h1>
-                <OverallPerformance data={data.statistics} />
+                <DataWrapper data={data.statistics}>
+                  <OverallPerformance />
+                </DataWrapper>
               </div>
             </div>
           </div>

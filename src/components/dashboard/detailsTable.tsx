@@ -3,7 +3,7 @@ import { StatisticByOperation } from "@/types/statistics";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 interface DetailsTable {
-  data: StatisticByOperation[]
+  data?: StatisticByOperation[]
 }
 
 export default function DetailsTable({ data }: DetailsTable) {
@@ -19,7 +19,7 @@ export default function DetailsTable({ data }: DetailsTable) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((el, index) => <TableRow key={index} className="font-bold">
+        {data?.map((el, index) => <TableRow key={index} className="font-bold">
           <TableCell className="font-medium">{getOperationName(el.operation)}</TableCell>
           <TableCell className="text-center text-[#2ecc71]">{el.correctQuestions}</TableCell>
           <TableCell className="text-center text-[#e74c3c]">{el.incorrectQuestions}</TableCell>

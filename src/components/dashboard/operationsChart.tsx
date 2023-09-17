@@ -5,12 +5,14 @@ import { Bar, Cell, LabelList, Tooltip, XAxis, YAxis } from "recharts";
 import BarChart from "../charts/barChart";
 
 interface OperationsChartProps {
-  data: StatisticByOperation[]
+  data?: StatisticByOperation[]
   selectedOperation?: VALID_OPERATION | null
   onBarClick?: (label: VALID_OPERATION) => void
 }
 
-function parseOperations(data: StatisticByOperation[]) {
+function parseOperations(data?: StatisticByOperation[]) {
+  if (!data) return [];
+
   return data.reduce((prev, value) => {
     const [correct, incorrect, skipped] = [value.correctQuestions, value.incorrectQuestions, value.skippedQuestions].map(Number)
     const questionsCount = correct + incorrect + skipped

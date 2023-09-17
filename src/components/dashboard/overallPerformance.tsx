@@ -4,10 +4,12 @@ import { PolarAngleAxis, Radar } from "recharts";
 import RadarChart from "../charts/radarChart";
 
 interface OverallPerformance {
-  data: StatisticByOperation[]
+  data?: StatisticByOperation[]
 }
 
-function parseOperations(data: StatisticByOperation[]) {
+function parseOperations(data?: StatisticByOperation[]) {
+  if (!data) return []
+
   return data.map(value => {
     const [correct, incorrect, skipped] = [value.correctQuestions, value.incorrectQuestions, value.skippedQuestions].map(Number)
     const total = correct + incorrect + skipped
