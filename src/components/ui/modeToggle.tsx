@@ -16,14 +16,14 @@ export default function ModeToggle({ vertical }: { vertical?: boolean }) {
         className={cn(TOGGLE_CLASSES, theme === "light" ? "text-offwhite" : "text-slate-300")}
         onClick={() => setTheme("light")}
       >
-        <FiMoon className="relative z-10 text-lg md:text-sm" />
+        <FiSun className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10 hidden sm:block">Light</span>
       </button>
       <button
         className={cn(TOGGLE_CLASSES, theme === "dark" ? "text-offwhite" : "text-slate-800")}
         onClick={() => setTheme("dark")}
       >
-        <FiSun className="relative z-10 text-lg md:text-sm" />
+        <FiMoon className="relative z-10 text-lg md:text-sm" />
         <span className="relative z-10 hidden sm:block">Dark</span>
       </button>
       <div className={cn("absolute inset-0 z-0 flex sm:flex-row", theme === "dark" ? "justify-end" : "justify-start", { 'flex-col': vertical })}>
